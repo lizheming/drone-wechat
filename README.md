@@ -1,5 +1,7 @@
 ## drone-wechat
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/lizheming/drone-wechat.svg)](https://greenkeeper.io/)
+
 drone 微信消息通知插件
 
 ## 简介
