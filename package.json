@@ -1,0 +1,30 @@
+{
+  "name": "drone-wechat",
+  "version": "0.0.1",
+  "description": "drone wechat notification plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lizheming/drone-wechat.git"
+  },
+  "keywords": [
+    "drone",
+    "plugin",
+    "wechat",
+    "node"
+  ],
+  "author": "lizheming <i@imnerd.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lizheming/drone-wechat/issues"
+  },
+  "homepage": "https://github.com/lizheming/drone-wechat#readme",
+  "dependencies": {
+    "drone-render": "^1.0.0",
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5"
+  }
+}
