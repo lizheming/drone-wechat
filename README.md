@@ -1,4 +1,4 @@
-<img src="logo.svg" />
+<img src="wechat.svg" />
 
 ## drone-wechat
 [![Travis](https://img.shields.io/travis/lizheming/drone-wechat.svg)]()
