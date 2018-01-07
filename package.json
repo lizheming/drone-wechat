@@ -4,7 +4,9 @@
   "description": "drone wechat notification plugin",
   "main": "index.js",
   "scripts": {
-    "test": "\"\""
+    "test": "npm run eslint && npm run test-cov",
+    "test-cov": "nyc ava test.js && nyc report --reporter=html",
+    "eslint": "eslint index.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +28,12 @@
     "drone-render": "^1.0.0",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5"
+  },
+  "devDependencies": {
+    "ava": "^0.24.0",
+    "eslint": "^4.14.0",
+    "eslint-config-think": "^1.0.2",
+    "mock-require": "^2.0.2",
+    "nyc": "^11.4.1"
   }
 }

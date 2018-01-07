@@ -1,3 +1,4 @@
+const process = require('process');
 const render = require('drone-render');
 const request = require('request-promise-native');
 
