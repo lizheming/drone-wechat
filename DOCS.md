@@ -5,6 +5,7 @@ author: lizheming
 tags: [ notifications, chat ]
 repo: lizheming/drone-wechat
 logo: wechat.svg
+image: lizheming/drone-wechat
 ---
 
 The Wechat plugin posts build status messages to your account. The below pipeline configuration demonstrates simple usage:
@@ -32,6 +33,11 @@ title
 : Notification title
 message
 : Notification body message, support markdown
+
+# Secret Reference
+
+server\_chan\_key
+: SCKEY get from [ServerChan](http://sc.ftqq.com)
 
 # Template Reference
 
