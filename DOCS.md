@@ -10,7 +10,7 @@ image: lizheming/drone-wechat
 
 The Wechat plugin posts build status messages to your account. The below pipeline configuration demonstrates simple usage:
 
-```yaml
+```diff
 pipline:
   wechat:
     image: lizheming/drone-wechat
@@ -26,7 +26,7 @@ pipline:
 
 If you want push notification with your own wechat corp id, you can config like this:
 
-```yaml
+```diff
 pipeline:
   wechat:
     image: lizheming/drone-wechat
