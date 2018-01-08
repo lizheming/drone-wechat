@@ -102,7 +102,7 @@ function sendMsgFromWork(access_token) {
 }
 
 function sendMsgFromWechat() {
-  return getAccessToken
+  return getAccessToken()
     .then(sendMsgFromWork)
     .catch(err => {
       console.error(err);
