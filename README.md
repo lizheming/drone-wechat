@@ -7,7 +7,7 @@
 [![](https://images.microbadger.com/badges/image/lizheming/drone-wechat.svg)](https://microbadger.com/images/lizheming/drone-wechat)
 [![GitHub release](https://img.shields.io/github/release/lizheming/drone-wechat.svg)]()
 
-Drone plugin for sending telegram notifications. 
+Drone plugin for sending wechat notifications. 
 
 ## Description
 
