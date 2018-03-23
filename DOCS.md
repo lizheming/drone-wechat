@@ -11,22 +11,6 @@ image: lizheming/drone-wechat
 The Wechat plugin posts build status messages to your account. The below pipeline configuration demonstrates simple usage:
 
 ```diff
-pipline:
-  wechat:
-    image: lizheming/drone-wechat
-+   sckey: xxxxxx
-    title: ${DRONE_REPO_NAME}
-    message: >
-      {%if success %}
-        build {{build.number}} succeeded. Good job.
-      {% else %}
-        build {{build.number}} failed. Fix me please.
-      {% endif %}
-```
-
-If you want push notification with your own wechat corp id, you can config like this:
-
-```diff
 pipeline:
   wechat:
     image: lizheming/drone-wechat
@@ -77,9 +61,6 @@ msg_url
 btn_text
 : The text for the button on the card
 
-sckey
-: SCKEY get from [ServerChan](http://sc.ftqq.com)
-
 title
 : Notification title
 
@@ -105,9 +86,6 @@ wechat\_to\_user
 
 wechat\_to\_tag
 : The tag ids to send the message to
-
-wechat_sckey
-: SCKEY get from [ServerChan](http://sc.ftqq.com)
 
 # Template Reference
 
