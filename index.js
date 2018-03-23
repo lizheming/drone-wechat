@@ -21,29 +21,9 @@ const {
   PLUGIN_MSG_URL,
   PLUGIN_BTN_TEXT,
 
-  PLUGIN_SCKEY,
-  WECHAT_SERVER_CHAN_KEY,
-
   PLUGIN_TITLE,
   PLUGIN_MESSAGE
 } = process.env;
-
-function sendMsgFromServerChan() {
-  const SCKEY = PLUGIN_SCKEY || WECHAT_SERVER_CHAN_KEY;
-  if (!SCKEY) {
-    return false;
-  }
-
-  request({
-    url: `https://sc.ftqq.com/${SCKEY}.send`,
-    qs: {
-      text: PLUGIN_TITLE,
-      desp: render(PLUGIN_MESSAGE)
-    }
-  });
-
-  return true;
-}
 
 function getAccessToken() {
   const CORPID = PLUGIN_CORPID || WECHAT_CORPID;
@@ -109,9 +89,8 @@ function sendMsgFromWechat() {
     });
 }
 
-sendMsgFromServerChan() || sendMsgFromWechat();
+sendMsgFromWechat();
 module.exports = {
-  sendMsgFromServerChan,
   getAccessToken,
   sendMsgFromWork,
   sendMsgFromWechat
