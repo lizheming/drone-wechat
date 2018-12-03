@@ -27,6 +27,7 @@ steps:
   settings:
     files:
       - ./coverage/lcov.info
+
 # - name: rebuild-cache
 #   image: drillster/drone-volume-cache
 #   volumes:
@@ -37,27 +38,24 @@ steps:
 #     mount:
 #     - ./node_modules
 
-# - name: wechat
-#   image: lizheming/drone-wechat
-#   pull: always
-#   environment:
-#     corpid:
-#       from_secret: corpid
-#     corp_secret:
-#       from_secret: corp_secret
-#     agent_id:
-#       from_secret: agent_id
-#   settings:
-#     title: "Drone Notification"
-#     corpid: ${corpid}
-#     corp_secret: ${corp_secret}
-#     agent_id: ${agent_id}
-#     message: >
-#       {% if success %}
-#       😊主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建成功！
-#       {% else %}
-#       😭主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建失败了，快来修理下吧。
-#       {% endif %}
+- name: wechat
+  image: lizheming/drone-wechat
+  pull: always
+  settings:
+    title: "构建通知"
+    corpid: 
+      from_secret: corpid
+    corp_secret:
+      from_secret: corp_secret
+    agent_id:
+      from_secret: agent_id
+    msg_url: "${DRONE_SYSTEM_HOST}/${DRONE_REPO_NAMESPACE}/${DRONE_REPO_NAME}/${DRONE_BUILD_NUMBER}"
+    message: >
+      {% if success %}
+      😊主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建成功！
+      {% else %}
+      😭主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建失败了，快来修理下吧。
+      {% endif %}
 
 # volumes:
 # - name: cache
