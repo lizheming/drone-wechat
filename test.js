@@ -1,38 +1,38 @@
-const {test} = require('ava');
+const { test } = require('ava');
 const mock = require('mock-require');
 
-const SCKEY = 'testsckey';
-const SCKEY2 = 'testsckey2';
+// const SCKEY = 'testsckey';
+// const SCKEY2 = 'testsckey2';
 const TITLE = 'test for title';
 const MESSAGE = 'test for message';
 
-test('send wechat with serverchan', async t => {
-  t.plan(2);
+// test('send wechat with serverchan', async t => {
+//   t.plan(2);
 
-  mock('process', {
-    env: {
-      PLUGIN_SCKEY: SCKEY,
-      PLUGIN_TITLE: TITLE,
-      PLUGIN_MESSAGE: MESSAGE
-    }
-  });
-  mock('drone-render', text => {
-    t.is(text, MESSAGE);
-    return text + '1';
-  });
-  mock('request-promise-native', obj => {
-    t.deepEqual(obj, {
-      url: `https://sc.ftqq.com/${SCKEY}.send`,
-      qs: {
-        text: TITLE,
-        desp: MESSAGE + '1'
-      }
-    });
-  });
+//   mock('process', {
+//     env: {
+//       PLUGIN_SCKEY: SCKEY,
+//       PLUGIN_TITLE: TITLE,
+//       PLUGIN_MESSAGE: MESSAGE
+//     }
+//   });
+//   mock('drone-render', text => {
+//     t.is(text, MESSAGE);
+//     return text + '1';
+//   });
+//   mock('request-promise-native', obj => {
+//     t.deepEqual(obj, {
+//       url: `https://sc.ftqq.com/${SCKEY}.send`,
+//       qs: {
+//         text: TITLE,
+//         desp: MESSAGE + '1'
+//       }
+//     });
+//   });
 
-  mock.reRequire('./index.js');
-  mock.stopAll();
-});
+//   mock.reRequire('./index.js');
+//   mock.stopAll();
+// });
 
 test('get wechat corp access token', async t => {
   t.plan(3);
@@ -57,7 +57,7 @@ test('get wechat corp access token', async t => {
       });
     }
 
-    return Promise.resolve({access_token: 1234});
+    return Promise.resolve({ access_token: 1234 });
   });
   const wechat = mock.reRequire('./index');
   t.is(1234, await wechat.getAccessToken());
@@ -78,7 +78,7 @@ test('send wechat with corp id', async t => {
   });
   mock('request-promise-native', obj => {
     if (obj.url.includes('gettoken')) {
-      return Promise.resolve({access_token: 1234});
+      return Promise.resolve({ access_token: 1234 });
     }
     if (obj.url.includes('send')) {
       t.deepEqual(obj, {
@@ -118,7 +118,7 @@ test('send wechat', async t => {
   });
   mock('request-promise-native', obj => {
     if (obj.url.includes('gettoken')) {
-      return Promise.resolve({errcode: 1, errmsg: 123});
+      return Promise.resolve({ errcode: 1, errmsg: 123 });
     }
     if (obj.url.includes('send')) {
       t.fail();
