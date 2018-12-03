@@ -13,11 +13,20 @@ steps:
 #     - ./node_modules
 
 - name: build
-  image: mhart/alpine-node:8
+  image: node:lts-alpine
   commands:
+  - npm set config package-lock false
   - npm install --registry=https://registry.npm.taobao.org
   - npm test
 
+- name: coveralls
+  image: lizheming/drone-coveralls
+  environment:
+    COVERALLS_REPO_TOKEN: 
+      from_secret: coveralls_token
+  settings:
+    files:
+      - ./coverage/lcov.info
 # - name: rebuild-cache
 #   image: drillster/drone-volume-cache
 #   volumes:
@@ -28,27 +37,27 @@ steps:
 #     mount:
 #     - ./node_modules
 
-- name: wechat
-  image: lizheming/drone-wechat
-  pull: always
-  environment:
-    corpid:
-      from_secret: corpid
-    corp_secret:
-      from_secret: corp_secret
-    agent_id:
-      from_secret: agent_id
-  settings:
-    title: "Drone Notification"
-    corpid: ${corpid}
-    corp_secret: ${corp_secret}
-    agent_id: ${agent_id}
-    message: >
-      {% if success %}
-      😊主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建成功！
-      {% else %}
-      😭主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建失败了，快来修理下吧。
-      {% endif %}
+# - name: wechat
+#   image: lizheming/drone-wechat
+#   pull: always
+#   environment:
+#     corpid:
+#       from_secret: corpid
+#     corp_secret:
+#       from_secret: corp_secret
+#     agent_id:
+#       from_secret: agent_id
+#   settings:
+#     title: "Drone Notification"
+#     corpid: ${corpid}
+#     corp_secret: ${corp_secret}
+#     agent_id: ${agent_id}
+#     message: >
+#       {% if success %}
+#       😊主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建成功！
+#       {% else %}
+#       😭主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建失败了，快来修理下吧。
+#       {% endif %}
 
 # volumes:
 # - name: cache
