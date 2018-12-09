@@ -4,8 +4,8 @@
   "description": "drone wechat notification plugin",
   "main": "index.js",
   "scripts": {
-    "test": "npm run eslint && npm run test-cov",
-    "test-cov": "nyc ava test.js && nyc report --reporter=html",
+    "test": "npm run eslint && npm run test-cov -- --reporter=html",
+    "test-cov": "nyc ava test.js && nyc report",
     "eslint": "eslint index.js"
   },
   "repository": {
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/lizheming/drone-wechat#readme",
   "dependencies": {
+    "coveralls": "^3.0.2",
     "drone-render": "^1.0.0",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5"
