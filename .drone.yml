@@ -29,12 +29,12 @@ steps:
     files:
       - ./lcov.info
 
-- name: code analysis
-  image: aosapps/drone-sonar-plugin
-  environment:
-    sonar_host: "https://sonar.eming.li"
-    sonar_token: 
-      from_secret: sonar_token
+# - name: code analysis
+#   image: aosapps/drone-sonar-plugin
+#   environment:
+#     sonar_host: "https://sonar.eming.li"
+#     sonar_token: 
+#       from_secret: sonar_token
 
 - name: rebuild-cache
   image: drillster/drone-volume-cache
