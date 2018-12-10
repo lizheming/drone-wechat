@@ -22,7 +22,9 @@ const {
   PLUGIN_BTN_TEXT,
 
   PLUGIN_TITLE,
-  PLUGIN_MESSAGE
+  PLUGIN_MESSAGE,
+
+  DRONE_BUILD_LINK
 } = process.env;
 
 function getAccessToken() {
@@ -54,7 +56,7 @@ function sendMsgFromWork(access_token) {
   const SAFE = PLUGIN_SAFE || 0;
   const TITLE = PLUGIN_TITLE;
   const DESCRIPTION = render(PLUGIN_MESSAGE);
-  const MSG_URL = PLUGIN_MSG_URL;
+  const MSG_URL = PLUGIN_MSG_URL || DRONE_BUILD_LINK;
   const BTN_TEXT = PLUGIN_BTN_TEXT;
 
   return request({
