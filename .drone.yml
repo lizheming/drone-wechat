@@ -25,6 +25,7 @@ steps:
     COVERALLS_REPO_TOKEN: 
       from_secret: coveralls_token
   settings:
+    debug: true
     files:
       - ./lcov.info
 
