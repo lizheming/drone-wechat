@@ -2,15 +2,15 @@ kind: pipline
 name: default
 
 steps:
-- name: restore-cache
-  image: drillster/drone-volume-cache
-  volumes:
-  - name: cache
-    path: /cache
-  settings:
-    restore: true
-    mount:
-    - ./node_modules
+# - name: restore-cache
+#   image: drillster/drone-volume-cache
+#   volumes:
+#   - name: cache
+#     path: /cache
+#   settings:
+#     restore: true
+#     mount:
+#     - ./node_modules
 
 - name: build
   image: node:lts-alpine
@@ -27,7 +27,7 @@ steps:
   settings:
     debug: true
     files:
-      - ./lcov.info
+      - ./coverage/lcov.info
 
 - name: code analysis
   image: jgentry/drone-sonar
@@ -36,15 +36,15 @@ steps:
     sonar_login: 
       from_secret: sonar_token
 
-- name: rebuild-cache
-  image: drillster/drone-volume-cache
-  volumes:
-  - name: cache
-    path: /cache
-  settings:
-    rebuild: true
-    mount:
-    - ./node_modules
+# - name: rebuild-cache
+#   image: drillster/drone-volume-cache
+#   volumes:
+#   - name: cache
+#     path: /cache
+#   settings:
+#     rebuild: true
+#     mount:
+#     - ./node_modules
 
 - name: wechat
   image: lizheming/drone-wechat
@@ -65,7 +65,7 @@ steps:
       😭主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建失败了，快来修理下吧。
       {% endif %}
 
-volumes:
-- name: cache
-  host:
-    path: /tmp/cache
+# volumes:
+# - name: cache
+#   host:
+#     path: /tmp/cache
