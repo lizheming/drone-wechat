@@ -16,8 +16,8 @@ steps:
   image: node:lts-alpine
   commands:
   - npm set config package-lock false
-  - npm install --registry=https://registry.npm.taobao.org
-  - npm run eslint && npm run test-cov -- --reporter=text-lcov > ./lcov.info
+  - npm install
+  - npm test
 
 - name: coveralls
   image: lizheming/drone-coveralls
@@ -27,7 +27,7 @@ steps:
   settings:
     debug: true
     files:
-      - ./coverage/lcov.info
+      - coverage/lcov.info
 
 - name: code analysis
   image: jgentry/drone-sonar
