@@ -1,99 +1,54 @@
-const process = require('process');
-const render = require('drone-render');
-const request = require('request-promise-native');
-
-const {
-  PLUGIN_CORPID,
-  WECHAT_CORPID,
-  PLUGIN_CORP_SECRET,
-  WECHAT_CORP_SECRET,
-  PLUGIN_AGENT_ID,
-  WECHAT_AGENT_ID,
-  PLUGIN_TO_PARTY,
-  WECHAT_TO_PARTY,
-  PLUGIN_TO_USER,
-  WECHAT_TO_USER,
-  PLUGIN_TO_TAG,
-  WECHAT_TO_TAG,
-
-  PLUGIN_MSG_TYPE,
-  PLUGIN_SAFE,
-  PLUGIN_MSG_URL,
-  PLUGIN_BTN_TEXT,
-
-  PLUGIN_TITLE,
-  PLUGIN_MESSAGE,
-
-  DRONE_BUILD_LINK
-} = process.env;
-
-function getAccessToken() {
-  const CORPID = PLUGIN_CORPID || WECHAT_CORPID;
-  const CORP_SECRET = PLUGIN_CORP_SECRET || WECHAT_CORP_SECRET;
-
-  return request({
-    url: 'https://qyapi.weixin.qq.com/cgi-bin/gettoken',
-    qs: {
-      corpid: CORPID,
-      corpsecret: CORP_SECRET
-    },
-    json: true
-  }).then(resp => {
-    if (!resp.access_token) {
-      throw new Error(resp);
-    }
-    return resp.access_token;
-  });
-}
-
-function sendMsgFromWork(access_token) {
-  const TO_USER = PLUGIN_TO_USER || WECHAT_TO_USER || '@all';
-  const TO_PARTY = PLUGIN_TO_PARTY || WECHAT_TO_PARTY;
-  const TO_TAG = PLUGIN_TO_TAG || WECHAT_TO_TAG;
-  const AGENT_ID = PLUGIN_AGENT_ID || WECHAT_AGENT_ID;
-
-  const MSG_TYPE = PLUGIN_MSG_TYPE || 'textcard';
-  const SAFE = PLUGIN_SAFE || 0;
-  const TITLE = PLUGIN_TITLE;
-  const DESCRIPTION = render(PLUGIN_MESSAGE);
-  const MSG_URL = PLUGIN_MSG_URL || DRONE_BUILD_LINK;
-  const BTN_TEXT = PLUGIN_BTN_TEXT;
-
-  return request({
-    method: 'POST',
-    url: 'https://qyapi.weixin.qq.com/cgi-bin/message/send',
-    qs: {
-      access_token
-    },
-    body: {
-      touser: TO_USER,
-      toparty: TO_PARTY,
-      tag: TO_TAG,
-      msgtype: MSG_TYPE,
-      agentid: AGENT_ID,
-      safe: SAFE,
-      textcard: {
-        title: TITLE,
-        description: DESCRIPTION,
-        url: MSG_URL,
-        btntext: BTN_TEXT
-      }
-    },
-    json: true
-  });
-}
-
-function sendMsgFromWechat() {
-  return getAccessToken()
-    .then(sendMsgFromWork)
-    .catch(err => {
-      console.error(err);
-    });
-}
-
-sendMsgFromWechat();
-module.exports = {
-  getAccessToken,
-  sendMsgFromWork,
-  sendMsgFromWechat
-};
+const { configParser, exec } = require('./plugin');
+configParser({
+  corpid: {
+    usage: 'The corpid for authorization',
+    env: 'PLUGIN_CORPID,WECHAT_CORPID'
+  },
+  corp_secret: {
+    usage: 'The corp secret for authorization',
+    env: 'PLUGIN_CORP_SECRET,WECHAT_CORP_SECRET'
+  },
+  agent_id: {
+    usage: 'The agent id to send the message',
+    env: 'PLUGIN_AGENT_ID,WECHAT_AGENT_ID'
+  },
+  to_party: {
+    usage: 'The party ids to send message',
+    env: 'PLUGIN_TO_PARTY,WECHAT_TO_PARTY'
+  },
+  to_user: {
+    usage: 'The user ids to send the message to',
+    def: '@all',
+    env: 'PLUGIN_TO_USER,WECHAT_TO_USER'
+  },
+  to_tag: {
+    usage: 'The tag ids to send the message to',
+    env: 'PLUGIN_TO_TAG,WECHAT_TO_TAG'
+  },
+  msg_type: {
+    usage: 'The message send type',
+    def: 'textcard',
+    env: 'PLUGIN_MSG_TYPE'
+  },
+  safe: {
+    usage: 'encrypt message, default is false',
+    def: 0,
+    env: 'PLUGIN_SAFE'
+  },
+  msg_url: {
+    usage: 'The link for the text card click',
+    env: 'PLUGIN_MSG_URL,DRONE_BUILD_LINK'
+  },
+  btn_text: {
+    usage: 'The text for the button on the card',
+    env: 'PLUGIN_BTN_TEXT'
+  },
+  title: {
+    usage: 'Notification title',
+    env: 'PLUGIN_TITLE'
+  },
+  message: {
+    usage: 'Notification body message, support markdown',
+    env: 'PLUGIN_MESSAGE'
+  }
+})(exec);
