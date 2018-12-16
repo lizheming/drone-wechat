@@ -4,8 +4,8 @@
   "description": "drone wechat notification plugin",
   "main": "index.js",
   "scripts": {
-    "test": "npm run eslint && npm run test-cov -- --reporter=html",
-    "test-cov": "nyc ava test.js && nyc report",
+    "test": "npm run eslint && npm run test-cov",
+    "test-cov": "nyc ava test.js && nyc report --reporter=lcov --reporter=text-lcov",
     "eslint": "eslint index.js"
   },
   "repository": {
