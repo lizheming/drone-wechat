@@ -34,35 +34,24 @@ const MESSAGE = 'test for message';
 //   mock.stopAll();
 // });
 
-test('get wechat corp access token', async t => {
-  t.plan(3);
+// test('get wechat corp access token', async t => {
+//   t.plan(2);
+//   mock('request-promise-native', obj => {
+//     t.deepEqual(obj, {
+//       url: 'https://qyapi.weixin.qq.com/cgi-bin/gettoken',
+//       qs: {
+//         corpid: 111,
+//         corpsecret: 222
+//       },
+//       json: true
+//     });
 
-  mock('process', {
-    env: {
-      PLUGIN_CORPID: 111,
-      PLUGIN_CORP_SECRET: 222,
-      PLUGIN_TITLE: TITLE,
-      PLUGIN_MESSAGE: MESSAGE
-    }
-  });
-  mock('request-promise-native', obj => {
-    if (obj.url.includes('gettoken')) {
-      t.deepEqual(obj, {
-        url: 'https://qyapi.weixin.qq.com/cgi-bin/gettoken',
-        qs: {
-          corpid: 111,
-          corpsecret: 222
-        },
-        json: true
-      });
-    }
-
-    return Promise.resolve({ access_token: 1234 });
-  });
-  const wechat = mock.reRequire('./index');
-  t.is(1234, await wechat.getAccessToken());
-  mock.stopAll();
-});
+//     return Promise.resolve({ access_token: 1234 });
+//   });
+//   const plugin = mock.reRequire('./plugin');
+//   t.is(1234, await plugin.getAccessToken(111, 222));
+//   mock.stopAll();
+// });
 
 test('send wechat with corp id', async t => {
   mock('process', {
