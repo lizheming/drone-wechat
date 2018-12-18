@@ -64,6 +64,10 @@ steps:
       {% else %}
       😭主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建失败了，快来修理下吧。
       {% endif %}
+  when:
+    status:
+    - success
+    - failure
 
 # volumes:
 # - name: cache
