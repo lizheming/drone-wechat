@@ -10,4 +10,5 @@ COPY package.json /wechat/package.json
 RUN npm install --production --registry=https://registry.npm.taobao.org
 
 COPY index.js /wechat/index.js
+COPY plugin.js /wechat/plugin.js
 ENTRYPOINT [ "node", "/wechat/index.js" ]
