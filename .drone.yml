@@ -32,7 +32,7 @@ steps:
 - name: code analysis
   image: jgentry/drone-sonar
   environment:
-    sonar_host: "https://fox.eming.li"
+    sonar_host: "https://sonarcloud.io"
     sonar_login: 
       from_secret: sonar_token
 
