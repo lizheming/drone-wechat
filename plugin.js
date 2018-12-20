@@ -47,6 +47,7 @@ function sendMsgFromWork({
   safe,
   title
 }) {
+  title = render(title);
   const description = render(message);
   const textcard = { title, url, btntext, description };
   return request({
