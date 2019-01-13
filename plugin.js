@@ -76,6 +76,7 @@ async function exec({ corpid, corp_secret, ...config }) {
     const resp = await sendMsgFromWork({ ...config, access_token });
     log('send msg success, and http response content is:');
     log(resp);
+    // eslint-disable-next-line
     console.log('==Send notification to Wechat success!==');
   } catch (e) {
     console.error(e);
