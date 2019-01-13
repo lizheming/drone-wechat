@@ -2,20 +2,20 @@ const process = require('process');
 const render = require('drone-render');
 const request = require('request-promise-native');
 
-function log(text) {
+function log(...args) {
   const debug = process.env.PLUGIN_DEBUG;
   if (!debug) {
     return;
   }
   // eslint-disable-next-line
-  console.log(text);
+  console.log(...args);
 }
 
 function configParser(configs) {
   const ret = {};
   for (const configName in configs) {
     const { env, def } = configs[configName];
-    if (def) {
+    if (def !== undefined) {
       ret[configName] = typeof def === 'function' ? def() : def;
     }
     env.split(/\s*,\s*/).some(envar => {
@@ -69,9 +69,10 @@ function sendMsgFromWork({
 
 async function exec({ corpid, corp_secret, ...config }) {
   try {
-    log('send notification to wechat start!');
+    log('config parse end, config except corpid and corp_secret:', config);
     const access_token = await getAccessToken(corpid, corp_secret);
     log('access_token request success!');
+    log('http request data:', config);
     const resp = await sendMsgFromWork({ ...config, access_token });
     log('send msg success, and http response content is:');
     log(resp);

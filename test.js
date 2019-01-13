@@ -65,7 +65,7 @@ test('send wechat with corp id', async t => {
       PLUGIN_AGENT_ID: 1122
     }
   });
-  mock('request-promise-native', obj => {
+  mock('request-promise-native', function(obj) {
     if (obj.url.includes('gettoken')) {
       return Promise.resolve({ access_token: 1234 });
     }
@@ -94,7 +94,7 @@ test('send wechat with corp id', async t => {
       });
     }
   });
-  mock.reRequire('./index');
+  await mock.reRequire('./index');
   mock.stopAll();
 });
 
