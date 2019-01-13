@@ -50,5 +50,9 @@ configParser({
   message: {
     usage: 'Notification body message, support markdown',
     env: 'PLUGIN_MESSAGE'
+  },
+  debug: {
+    usage: 'debug mode',
+    env: 'PLUGIN_DEBUG'
   }
 })(exec);

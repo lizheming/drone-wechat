@@ -2,10 +2,22 @@ const process = require('process');
 const render = require('drone-render');
 const request = require('request-promise-native');
 
+function log(text) {
+  const debug = process.env.PLUGIN_DEBUG;
+  if (!debug) {
+    return;
+  }
+  // eslint-disable-next-line
+  console.log(text);
+}
+
 function configParser(configs) {
   const ret = {};
   for (const configName in configs) {
     const { env, def } = configs[configName];
+    if (def) {
+      ret[configName] = typeof def === 'function' ? def() : def;
+    }
     env.split(/\s*,\s*/).some(envar => {
       if (process.env.hasOwnProperty(envar)) {
         ret[configName] = process.env[envar];
@@ -13,11 +25,7 @@ function configParser(configs) {
       }
       return false;
     });
-    if (!ret.hasOwnProperty(configName)) {
-      ret[configName] = typeof def === 'function' ? def() : def;
-    }
   }
-
   return fn => fn(ret);
 }
 
@@ -59,12 +67,17 @@ function sendMsgFromWork({
   });
 }
 
-function exec({ corpid, corp_secret, ...config }) {
-  return getAccessToken(corpid, corp_secret)
-    .then(access_token => sendMsgFromWork({ ...config, access_token }))
-    .catch(err => {
-      console.error(err);
-    });
+async function exec({ corpid, corp_secret, ...config }) {
+  try {
+    log('send notification to wechat start!');
+    const access_token = await getAccessToken(corpid, corp_secret);
+    log('access_token request success!');
+    const resp = await sendMsgFromWork({ ...config, access_token });
+    log('send msg success, and http response content is:');
+    log(resp);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 module.exports = {
