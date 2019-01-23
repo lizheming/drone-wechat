@@ -46,7 +46,7 @@ function sendMsgFromWork({
   access_token,
   to_user: touser,
   to_party: toparty,
-  to_tag: tag,
+  to_tag: totag,
   msg_type: msgtype,
   agent_id: agentid,
   msg_url: url,
@@ -62,7 +62,7 @@ function sendMsgFromWork({
     method: 'POST',
     url: 'https://qyapi.weixin.qq.com/cgi-bin/message/send',
     qs: { access_token },
-    body: { touser, toparty, tag, msgtype, agentid, safe, textcard },
+    body: { touser, toparty, totag, msgtype, agentid, safe, textcard },
     json: true
   });
 }
