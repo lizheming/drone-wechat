@@ -79,7 +79,7 @@ test('send wechat with corp id', async t => {
         body: {
           touser: '@all',
           toparty: 'party',
-          tag: 'tag',
+          totag: 'tag',
           msgtype: 'textcard',
           agentid: 1122,
           safe: 0,
