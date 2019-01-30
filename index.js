@@ -18,7 +18,6 @@ configParser({
   },
   to_user: {
     usage: 'The user ids to send the message to',
-    def: '@all',
     env: 'PLUGIN_TO_USER,WECHAT_TO_USER'
   },
   to_tag: {
