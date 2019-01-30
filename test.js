@@ -60,6 +60,7 @@ test('send wechat with corp id', async t => {
       PLUGIN_MESSAGE: MESSAGE,
       PLUGIN_TO_PARTY: 'party',
       PLUGIN_TO_TAG: 'tag',
+      PLUGIN_TO_USER: '@all',
       PLUGIN_MSG_URL: '',
       PLUGIN_BTN_TEXT: 'more',
       PLUGIN_AGENT_ID: 1122
