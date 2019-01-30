@@ -62,6 +62,7 @@ steps:
       from_secret: corp_secret
     agent_id:
       from_secret: agent_id
+    to_user: "@all"
     message: >
       {% if success %}
       😊主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建成功！
