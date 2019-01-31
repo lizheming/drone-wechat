@@ -26,7 +26,7 @@
   "homepage": "https://github.com/lizheming/drone-wechat#readme",
   "dependencies": {
     "coveralls": "^3.0.2",
-    "drone-render": "^1.0.0",
+    "drone-render": "^1.0.2",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5"
   },
