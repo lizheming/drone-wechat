@@ -55,10 +55,13 @@ function sendMsgFromWork({
   safe,
   title
 }) {
-  title = render(title);
-  totag = render(totag);
-  const description = render(message);
+  title = title && render(title);
+  totag = totag && render(totag);
+  btntext = btntext && render(btntext);
+  const description = message && render(message);
+
   const textcard = { title, url, btntext, description };
+
   return request({
     method: 'POST',
     url: 'https://qyapi.weixin.qq.com/cgi-bin/message/send',
