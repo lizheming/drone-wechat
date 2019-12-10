@@ -1,6 +1,6 @@
 {
   "name": "drone-wechat",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "drone wechat notification plugin",
   "main": "index.js",
   "scripts": {
