@@ -20,6 +20,7 @@ steps:
   - npm test
 
 - name: coveralls
+  pull: true
   image: lizheming/drone-coveralls
   environment:
     COVERALLS_REPO_TOKEN: 
@@ -29,12 +30,12 @@ steps:
     files:
       - coverage/lcov.info
 
-- name: code analysis
-  image: jgentry/drone-sonar
-  environment:
-    sonar_host: "https://sonarcloud.io"
-    sonar_login: 
-      from_secret: sonar_token
+# - name: code analysis
+#   image: jgentry/drone-sonar
+#   environment:
+#     sonar_host: "https://sonarcloud.io"
+#     sonar_login: 
+#       from_secret: sonar_token
 
 # - name: rebuild-cache
 #   image: drillster/drone-volume-cache
@@ -46,33 +47,33 @@ steps:
 #     mount:
 #     - ./node_modules
 
-- name: wechat
-  image: lizheming/drone-wechat
-  pull: always
-  settings:
-    title: >
-     {% if success %}
-     ✅ {{repo.owner}}/{{repo.name}} 第 {{build.number}} 次构建成功！
-     {% else %}
-     ❌ {{repo.owner}}/{{repo.name}} 第 {{build.number}} 次构建失败了，快来修理下吧。
-     {% endif %}
-    corpid: 
-      from_secret: corpid
-    corp_secret:
-      from_secret: corp_secret
-    agent_id:
-      from_secret: agent_id
-    to_user: "@all"
-    message: >
-      {% if success %}
-      😊主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建成功！
-      {% else %}
-      😭主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建失败了，快来修理下吧。
-      {% endif %}
-  when:
-    status:
-    - success
-    - failure
+# - name: wechat
+#   image: lizheming/drone-wechat
+#   pull: always
+#   settings:
+#     title: >
+#      {% if success %}
+#      ✅ {{repo.owner}}/{{repo.name}} 第 {{build.number}} 次构建成功！
+#      {% else %}
+#      ❌ {{repo.owner}}/{{repo.name}} 第 {{build.number}} 次构建失败了，快来修理下吧。
+#      {% endif %}
+#     corpid: 
+#       from_secret: corpid
+#     corp_secret:
+#       from_secret: corp_secret
+#     agent_id:
+#       from_secret: agent_id
+#     to_user: "@all"
+#     message: >
+#       {% if success %}
+#       😊主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建成功！
+#       {% else %}
+#       😭主人，{{repo.owner}}/{{repo.name}}第{{build.number}}次构建失败了，快来修理下吧。
+#       {% endif %}
+#   when:
+#     status:
+#     - success
+#     - failure
 
 # volumes:
 # - name: cache
