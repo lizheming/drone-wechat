@@ -1,4 +1,4 @@
-kind: pipline
+kind: pipeline
 name: default
 
 steps:
